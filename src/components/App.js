@@ -2,40 +2,60 @@
 
 // Setup.
 import { useEffect, useState } from "react";
+import { Switch, Route } from "react-router-dom";
 import { API_URL } from "../config";
 import axios from "axios";
 
+// Components.
+import MyNav from "./MyNav";
+import CervezaLista from "./CervezaLista";
+import CervezaInfo from "./CervezaInfo";
+import NuevaCerveza from "./NuevaCerveza";
+
 // Styles.
-import { Spinner } from "react-bootstrap";
 import "../styles/App.css";
 
 // Rendering function.
 function App() {
-  const [cervezas, setCervezas] = useState([]);
+  // Adds a new beer into the database.
+  const handleAddCerveza = (e) => {
+    e.preventDefault();
 
-  // componentDidMount.
-  useEffect(() => {
-    axios.get(`${API_URL}/cervezas`).then((res) => {
-      setCervezas(res.data);
+    const { name, phrase, description } = e.target;
+
+    const nuevaCerveza = {
+      name,
+      phrase,
+      description,
+    };
+
+    axios.post(`${API_URL}/cervezas/nueva`, nuevaCerveza).then(() => {
+      props.history.push("/");
     });
-  }, []);
-
-  // Will show a spinner as long as there are no cervezas.
-  if (!cervezas.length) {
-    return (
-      <Spinner animation="border" role="status" variant="dark">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
-  }
+  };
 
   return (
     <div className="App">
-      <div className="listaDeCervezas">
-        {cervezas.map((cerveza) => {
-          return <p key={cerveza._id}>{cerveza.name}</p>;
-        })}
-      </div>
+      <MyNav />
+
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return <CervezaLista />;
+          }}
+        />
+
+        <Route exact path="/information/:cervezaId" component={CervezaInfo} />
+
+        <Route
+          path="/new-cerveza"
+          render={() => {
+            return <NuevaCerveza onSubmit={handleAddCerveza} />;
+          }}
+        />
+      </Switch>
     </div>
   );
 }

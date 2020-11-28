@@ -8,14 +8,13 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import "../styles/MyNav.css";
 
-// Rendering function
 function MyNav() {
   return (
     <Navbar className="myNavbar">
       <Nav className="myNav">
         <Link to="/">Home</Link>
-        <Link to="/random-cerveza">Random</Link>
-        <Link to="/new-cerveza">New</Link>
+        <Link to="/random">Random</Link>
+        <Link to="/nueva">New</Link>
       </Nav>
     </Navbar>
   );

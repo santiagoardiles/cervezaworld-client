@@ -9,7 +9,6 @@ import axios from "axios";
 import { Card, Spinner, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-// Rendering function.
 function CervezaLista() {
   const [cervezas, setCervezas] = useState([]);
 

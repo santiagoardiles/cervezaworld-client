@@ -15,11 +15,12 @@ import NuevaCerveza from "./NuevaCerveza";
 // Styles.
 import "../styles/App.css";
 
-// Rendering function.
 function App() {
   // Adds a new beer into the database.
   const handleAddCerveza = (e) => {
     e.preventDefault();
+
+    console.log(e.target);
 
     const { name, phrase, description } = e.target;
 
@@ -50,7 +51,7 @@ function App() {
         <Route exact path="/information/:cervezaId" component={CervezaInfo} />
 
         <Route
-          path="/new-cerveza"
+          path="/nueva"
           render={() => {
             return <NuevaCerveza onSubmit={handleAddCerveza} />;
           }}

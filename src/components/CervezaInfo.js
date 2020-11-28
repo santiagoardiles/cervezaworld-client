@@ -8,7 +8,6 @@ import axios from "axios";
 // Styles.
 import { Card, Spinner, Image } from "react-bootstrap";
 
-// Rendering function.
 function CervezaInfo(props) {
   const [cerveza, setCerveza] = useState(null);
   const cervezaId = props.match.params.cervezaId;
